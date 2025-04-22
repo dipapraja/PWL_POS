@@ -182,64 +182,43 @@ class UserController extends Controller
             return redirect('/user')->with('error', 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
+
+    
+    // Menambah fungsi create_ajax
+    public function create_ajax() {
+        $level = LevelModel::select('level_id', 'level_nama')->get();
+
+        return view('user.create_ajax')
+                    ->with('level', $level);
+    }
+
+    public function store_ajax(Request $request) {
+        // cek apakah request berupa ajx
+        if($request->ajax() || $request->wantsJson()){
+            $rules = [
+                'level_id' => 'required|integer',
+                'username' => 'required|string|min:3|unique:m_user, username',
+                'nama'     => 'required|string|max:100',
+                'password' => 'required|min:6'
+            ];
+
+            // user Illuminate\Support\Facades\Validator;
+            $validator = validator::make($request->all(), $rules);
+
+            if($validator->fails()){
+                return response()->json([
+                    'status' => false, //respoonse status, false: error/gagal, true: berhasil
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors(), //pesan eror validasi
+                ]);
+            }
+
+            UserModel::create($request->all());
+            return response()->json([
+                'status' => true,
+                'message' => 'Data user berhasil disimpan'
+            ]);
+        }
+        redirect('/');
+    }
 }
-
-// namespace App\Http\Controllers;
-
-// use App\Models\UserModel;
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Hash;
-
-// class UserController extends Controller
-// {
-//     public function index()
-//     {
-//         $user = UserModel::with('level')->get();
-//         return view('user', ['data' => $user]);
-//     }
-//     public function tambah()
-//     {
-//         return view('user_tambah');
-//     }
-
-//     public function tambah_simpan(Request $request)
-//     {
-//         UserModel::create([
-//             'username' => $request->username,
-//             'nama' => $request->nama,
-//             'password' => Hash::make('$request->password'),
-//             'level_id' => $request->level_id
-//         ]);
-
-//         return redirect('/user');
-//     }
-
-//     public function ubah($id)
-//     {
-//         $user = UserModel::find($id);
-//         return view('user_ubah', ['data' => $user]);
-//     }
-
-//     public function ubah_simpan($id, Request $request)
-//     {
-//         $user = UserModel::find($id);
-
-//         $user->username = $request->username;
-//         $user->nama = $request->nama;
-//         $user->password = Hash::make('$request->password');
-//         $user->level_id = $request->level_id;
-
-//         $user->save();
-
-//         return redirect('/user');
-//     }
-
-    // public function hapus($id) //untuk menghapus
-    // {
-    //     $user = UserModel::find($id);
-    //     $user->delete();
-
-    //     return redirect('/user');
-    // }
-
-// }
