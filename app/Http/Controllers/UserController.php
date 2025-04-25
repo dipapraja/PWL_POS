@@ -240,7 +240,7 @@ class UserController extends Controller
 
                 $btn = '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/confirm_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
 
                 return $btn;
             })
@@ -423,6 +423,12 @@ class UserController extends Controller
         return view('user.edit_ajax', ['user' => $user, 'level' => $level]);
     }
 
+    public function show_ajax($id)
+     {
+         $user = UserModel::with('level')->find($id);
+         return view('user.show_ajax', compact('user'));
+     }
+     
     public function update_ajax(Request $request, $id)
     {
         // Cek apakah request dari ajax
@@ -492,7 +498,7 @@ class UserController extends Controller
                     'message' => 'Data tidak ditemukan'
                 ]);
             }
-            return redirect('/');
         }
+        return redirect('/');
     }
 }

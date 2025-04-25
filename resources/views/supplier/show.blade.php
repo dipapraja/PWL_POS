@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <th>Nama Supplier</th>
-                    <td>{{ $supplier->supplier_nama }}</td>
+                    <td>{{ $supplier->supplier_name }}</td>
                 </tr>
                 <tr>
                     <th>Alamat Supplier</th>

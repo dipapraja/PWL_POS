@@ -32,8 +32,8 @@
                 <div class="form-group row">
                     <label class="col-1 control-label col-form-label">Nama Supplier</label>
                     <div class="col-11">
-                        <input type="text" class="form-control" id="supplier_nama" name="supplier_nama" value="{{ old('supplier_nama', $supplier->supplier_nama) }}" required>
-                        @error('supplier_nama')
+                        <input type="text" class="form-control" id="supplier_name" name="supplier_name" value="{{ old('supplier_name', $supplier->supplier_name) }}" required>
+                        @error('supplier_name')
                             <small class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
