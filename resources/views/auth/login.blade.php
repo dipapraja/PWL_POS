@@ -61,8 +61,12 @@
                          </div>
                          <!-- /.col -->
                      </div>
+                        <p>Don't have an account?</p>
+                        <a href="{{ url('/register') }}" class="btn btn-secondary btn-block">Register</a>
+                    </div>
                  </form>
              </div>
+        <!-- /.col -->
              <!-- /.card-body -->
          </div>
          <!-- /.card -->
