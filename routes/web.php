@@ -124,6 +124,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/import', [BarangController::class, 'import']); // form upload excel
             Route::post('/import_ajax', [BarangController::class, 'import_ajax']); // proses import excel
 
+            // Import & Export Excel
+            Route::get('/import', [BarangController::class, 'import']); // form upload excel
+            Route::post('/import_ajax', [BarangController::class, 'import_ajax']); // proses import excel
+            Route::get('/export_excel', [BarangController::class, 'export_excel']); // export excel
+
             // Non-AJAX
             Route::get('/{id}', [BarangController::class, 'show']);
             Route::get('/{id}/edit', [BarangController::class, 'edit']);
