@@ -112,6 +112,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/create', [BarangController::class, 'create']);
             Route::post('/', [BarangController::class, 'store']);
 
+            
             // AJAX Routes
             Route::get('/create_ajax', [BarangController::class, 'create_ajax']); // ajax form create
             Route::post('/ajax', [BarangController::class, 'store_ajax']); // ajax store
@@ -128,6 +129,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/import', [BarangController::class, 'import']); // form upload excel
             Route::post('/import_ajax', [BarangController::class, 'import_ajax']); // proses import excel
             Route::get('/export_excel', [BarangController::class, 'export_excel']); // export excel
+            Route::get('/export_pdf', [BarangController::class, 'export_pdf']); // export pdf
 
             // Non-AJAX
             Route::get('/{id}', [BarangController::class, 'show']);
